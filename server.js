@@ -14,5 +14,9 @@ app.get('/', (request, response) => {
   response.send('City Explorer Backend');
 });
 
+app.get('/location', (request, response) => {
+  response.send('Location output goes here');
+});
+
 // Make sure the server is listening for requests
 app.listen(PORT, () => console.log(`App is listening on ${PORT}`));
