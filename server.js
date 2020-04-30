@@ -14,37 +14,12 @@ app.use(cors());
 
 // Route Definitions
 app.get('/', rootHandler);
-app.get('/location', locationHandler);
-app.get('/weather', weatherHandler);
-app.get('/trails', trailsHandler);
-app.get('/movies', moviesHandler);
-app.get('/yelp', yelpHandler);
 
 app.use(errorHandler);
 app.use('*', notFoundHandler);
 
 // Route Handlers
 function rootHandler(request, response){
-  response.send('Response message or action goes here');
-}
-
-function locationHandler(request, response){
-  response.send('Response message or action goes here');
-}
-
-function weatherHandler(request, response){
-  response.send('Response message or action goes here');
-}
-
-function trailsHandler(request, response){
-  response.send('Response message or action goes here');
-}
-
-function moviesHandler(request, response){
-  response.send('Response message or action goes here');
-}
-
-function yelpHandler(request, response){
   response.send('Response message or action goes here');
 }
 
