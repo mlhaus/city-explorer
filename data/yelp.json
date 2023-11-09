@@ -1,0 +1,56 @@
+{
+  "businesses": [
+    {
+      "id": "Gp59imszlw9Hb-609x_eMQ",
+      "alias": "modoo-restaurant-lynnwood",
+      "name": "Modoo Restaurant",
+      "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/ypD653OMVDMgvpX6T51U1Q/o.jpg",
+      "is_closed": false,
+      "url": "https://www.yelp.com/biz/modoo-restaurant-lynnwood?adjust_creative=ZvMeAE6vJj-k1jFPBh7AtQ&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=ZvMeAE6vJj-k1jFPBh7AtQ",
+      "review_count": 219,
+      "categories": [
+        {
+          "alias": "korean",
+          "title": "Korean"
+        },
+        {
+          "alias": "soulfood",
+          "title": "Soul Food"
+        }
+      ],
+      "rating": 4.5,
+      "coordinates": {
+        "latitude": 47.830311,
+        "longitude": -122.306581
+      },
+      "transactions": [
+        "delivery"
+      ],
+      "price": "$$",
+      "location": {
+        "address1": "18601 Hwy 99",
+        "address2": "Ste 100",
+        "address3": null,
+        "city": "Lynnwood",
+        "zip_code": "98037",
+        "country": "US",
+        "state": "WA",
+        "display_address": [
+          "18601 Hwy 99",
+          "Ste 100",
+          "Lynnwood, WA 98037"
+        ]
+      },
+      "phone": "+14259675360",
+      "display_phone": "(425) 967-5360",
+      "distance": 284.6972842633056
+    }
+  ],
+  "total": 371,
+  "region": {
+    "center": {
+      "longitude": -122.3053932,
+      "latitude": 47.8278656
+    }
+  }
+}
