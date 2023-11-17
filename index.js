@@ -45,16 +45,11 @@ function locationHandler(request, response) {
 function restaurantHandler(request, response) {
     const lat = parseFloat(request.query.lat);
     const lon = parseFloat(request.query.lon);
-    const page = parseInt(request.query.page);
-    const itemsPerPage = 4;
-    const start = (page - 1) * itemsPerPage;
-    // const json = require('./data/yelp.json');
     superagent.get('https://api.yelp.com/v3/businesses/search')
         .query({
             latitude: lat,
             longitude: lon,
-            limit: itemsPerPage,
-            offset: start + 1
+            limit: 4
         })
         .set("Authorization", `Bearer ${process.env.YELP_KEY}`)
         .then(responseFromYelp => {
@@ -89,6 +84,8 @@ function Business(json) {
     this.name = json.name;
     this.rating = json.rating;
     this.image_url = json.image_url;
+    this.price = json.price;
+    this.url = json.url;
     this.phone = json.display_phone;
     this.categories = [];
     json.categories.forEach(category => {
