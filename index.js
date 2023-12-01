@@ -16,6 +16,7 @@ app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
 app.get('/marc-cow', cowHandler);
+app.get('/nathan-cow', nathanHandler);
 // TODO: Create a path for /weather
 // app.get('/error', (request, response) => {throw new Error("An error occurred")});
 app.use('*', fileNotFound);
@@ -72,6 +73,17 @@ function restaurantHandler(request, response) {
             });
             response.status(200).send(businessArr);
         });
+}
+
+function nathanHandler(req, res){
+    let str = cowsay.say({
+        text: "Hello world!",
+        e: "-O",
+        T: " U",
+        f: 'aperture'
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
 }
 
 // TODO: Create a weatherHandler
