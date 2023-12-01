@@ -16,6 +16,7 @@ app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
 app.get('/marc-cow', cowHandler);
+app.get('/toney-cow', turkeyHandler);
 // TODO: Create a path for /weather
 // app.get('/error', (request, response) => {throw new Error("An error occurred")});
 app.use('*', fileNotFound);
@@ -52,6 +53,16 @@ function locationHandler(request, response) {
         });
     // const location = new Location(json, search);
     // response.status(200).send(location);
+}
+
+function turkeyHandler(req, res) {
+    let str = cowsay.say({
+        text: 'Turkey Time.',
+        T: 'T',
+        f: 'turkey'
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
 }
 
 function restaurantHandler(request, response) {
