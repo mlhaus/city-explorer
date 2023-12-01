@@ -39,9 +39,11 @@ function cowHandler(req, res) {
 
 function cowHandlerJL(req, res){
     let str = cowsay.say({
+
         text: "Moo Moo Moo!",
         e: "X X",
         T: " U",
+        f: 'fat-cow'
     });
     res.setHeader('content-type', 'text/plain');
     res.status(200).send(str);
