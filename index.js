@@ -3,6 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const superagent = require('superagent');
+const cowsay = require("cowsay");
 
 // Application setup
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors()); // allows connections to be made with outside sources
 app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
+app.get('/marc-cow', cowHandler);
 // TODO: Create a path for /weather
 // app.get('/error', (request, response) => {throw new Error("An error occurred")});
 app.use('*', fileNotFound);
@@ -22,6 +24,16 @@ app.use(errorHandler);
 // Handle route requests
 function greet(request, response) {
     response.status(200).send("Welcome!");
+}
+
+function cowHandler(req, res) {
+    let str = cowsay.say({
+        text: "Hello world!",
+        e: "-O",
+        T: " U",
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
 }
 
 function locationHandler(request, response) {
