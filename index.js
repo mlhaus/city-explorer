@@ -16,6 +16,7 @@ app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
 app.get('/marc-cow', cowHandler);
+app.get('/josh-cow', joshHandler)
 app.get('/jared-tux', tuxHandler);
 // TODO: Create a path for /weather
 // app.get('/error', (request, response) => {throw new Error("An error occurred")});
@@ -26,6 +27,15 @@ app.use(errorHandler);
 function greet(request, response) {
     response.status(200).send("Welcome!");
 }
+function joshHandler(req, res) {
+    let str = cowsay.say({
+        text: "Oh hi Marc!",
+        T: " U",
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
+}
+
 
 function cowHandler(req, res) {
     let str = cowsay.say({
