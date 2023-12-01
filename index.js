@@ -21,7 +21,7 @@ app.use(errorHandler);
 
 // Handle route requests
 function greet(request, response) {
-    response.status(200).send("Hello World!");
+    response.status(200).send("Welcome!");
 }
 
 function locationHandler(request, response) {
