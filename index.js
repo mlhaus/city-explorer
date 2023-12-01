@@ -16,6 +16,7 @@ app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
 app.get('/marc-cow', cowHandler);
+app.get('/toney-cow', turkeyHandler);
 app.get('/jacob-cow', cowHandlerJL)
 app.get('/nathan-cow', nathanHandler);
 app.get('/josh-cow', joshHandler)
@@ -86,6 +87,16 @@ function locationHandler(request, response) {
         });
     // const location = new Location(json, search);
     // response.status(200).send(location);
+}
+
+function turkeyHandler(req, res) {
+    let str = cowsay.say({
+        text: 'Turkey Time.',
+        T: 'T',
+        f: 'turkey'
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
 }
 
 function restaurantHandler(request, response) {
