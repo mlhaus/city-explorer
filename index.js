@@ -16,6 +16,7 @@ app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
 app.get('/marc-cow', cowHandler);
+app.get('/jacob-cow', cowHandlerJL)
 app.get('/nathan-cow', nathanHandler);
 app.get('/josh-cow', joshHandler)
 app.get('/jared-tux', tuxHandler);
@@ -48,6 +49,18 @@ function cowHandler(req, res) {
     res.status(200).send(str);
 }
 
+function cowHandlerJL(req, res){
+    let str = cowsay.say({
+
+        text: "Moo Moo Moo!",
+        e: "X X",
+        T: " U",
+        f: 'fat-cow'
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
+}
+      
 function tuxHandler(req, res) {
     let str = cowsay.say({
         text: 'Penguins are cool.',
