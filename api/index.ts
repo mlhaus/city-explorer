@@ -15,7 +15,8 @@ app.use(cors()); // allows connections to be made with outside sources
 app.get('/', greet);
 app.get('/location', locationHandler);
 app.get('/yelp', restaurantHandler);
-app.get('/fox-parker', cowHandler);
+app.get('/weather', weatherHandler);
+app.get('/fox-parker', foxHandler);
 app.get('/marc-cow', cowHandler);
 app.get('/toney-cow', turkeyHandler);
 app.get('/jacob-cow', cowHandlerJL)
@@ -41,8 +42,17 @@ function joshHandler(req, res) {
     res.status(200).send(str);
 }
 
-
 function cowHandler(req, res) {
+    let str = cowsay.say({
+        text: "Hello world!",
+        e: "oO",
+        T: " U",
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
+}
+
+function foxHandler(req, res) {
     let str = cowsay.say({
         text: "Hello world!",
         f: 'fox'
@@ -62,11 +72,21 @@ function cowHandlerJL(req, res){
     res.setHeader('content-type', 'text/plain');
     res.status(200).send(str);
 }
-      
+
 function tuxHandler(req, res) {
     let str = cowsay.say({
         text: 'Penguins are cool.',
         f: 'tux'
+    });
+    res.setHeader('content-type', 'text/plain');
+    res.status(200).send(str);
+}
+
+function turkeyHandler(req, res) {
+    let str = cowsay.say({
+        text: 'Turkey Time.',
+        T: 'T',
+        f: 'turkey'
     });
     res.setHeader('content-type', 'text/plain');
     res.status(200).send(str);
@@ -83,18 +103,19 @@ function locationHandler(request, response) {
         })
         .then(responseFromLocationIQ => {
             const topLocation = responseFromLocationIQ._body[0];
-            const location = new Location(topLocation, search);
-            response.status(200).send(location);
+            const location = new Location2(topLocation, search);
+            response.status(200).send(topLocation);
         });
     // const location = new Location(json, search);
     // response.status(200).send(location);
 }
 
-function turkeyHandler(req, res) {
+function nathanHandler(req, res){
     let str = cowsay.say({
-        text: 'Turkey Time.',
-        T: 'T',
-        f: 'turkey'
+        text: "Hello world!",
+        e: "-O",
+        T: " U",
+        f: 'aperture'
     });
     res.setHeader('content-type', 'text/plain');
     res.status(200).send(str);
@@ -120,18 +141,25 @@ function restaurantHandler(request, response) {
         });
 }
 
-function nathanHandler(req, res){
-    let str = cowsay.say({
-        text: "Hello world!",
-        e: "-O",
-        T: " U",
-        f: 'aperture'
-    });
-    res.setHeader('content-type', 'text/plain');
-    res.status(200).send(str);
-}
+function weatherHandler(request, response) {
+    const lat = parseFloat(request.query.lat);
+    const lon = parseFloat(request.query.lon);
+    console.log(lat, lon);
+    superagent.get('https://api.openweathermap.org/data/2.5/weather')
+        .query({
+            lat: lat,
+            lon: lon,
+            units: 'imperial',
+            appid: process.env.WEATHER_KEY
+        })
+        .then(responseFromWeather => {
+            console.log(responseFromWeather);
+            const weather = new Weather(responseFromWeather.body);
+            console.log(weather);
+            response.status(200).send(weather);
 
-// TODO: Create a weatherHandler
+        });
+}
 
 function fileNotFound(request, response) {
     response.status(404).send("File not found");
@@ -142,7 +170,7 @@ function errorHandler(error, request, response, next) {
 }
 
 // Object contructors
-function Location(json, search) {
+function Location2(json, search) {
     this.lat = json.lat;
     this.lon = json.lon;
     this.display_name = json.display_name;
@@ -167,8 +195,25 @@ function Business(json) {
     this.zip = json.location.zip_code;
 }
 
-// TODO: Create a Weather class
-// Display description, current_temp, feels_like, min_temp, max_temp, wind_speed, wind_direction, cloud_percentage
-
+function Weather(json) {
+    console.log(json);
+    this.lat = json.coord.lat;
+    this.lon = json.coord.lon;
+    this.weatherName = json.weather[0].main;
+    this.weather = json.weather[0].description;
+    this.current_temp= json.main.temp;
+    this.feels_like = json.main.feels_like;
+    this.temp_min = json.main.temp_min;
+    this.temp_max = json.main.temp_max;
+    this.pressure = json.main.pressure;
+    this.humidity = json.main.humidity;
+    this.visibility = json.visibility;
+    this.wind_speed= json.wind.speed;
+    this.wind_direction= json.wind.deg;
+    this.cloud_percentage= json.clouds.all;
+    this.sunrise = json.sys.sunrise;
+    this.sunset = json.sys.sunset;
+    this.timezone = json.timezone;
+}
 // App listener
 app.listen(port, () => console.log(`Listening on port ${port}`));
